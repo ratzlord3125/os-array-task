@@ -54,17 +54,21 @@ int main(int argc, char**argv)
     int p = atoi(argv[4]); 
 
     int arr[n][n]; // to store the input in matrix 
-
-    printf("---INPUT---\n");
-    printf("n : %d \n a : %d \n b : %d \n p : %d\n", n, a, b, p); 
-    printf("Matrix : \n");
     for(int i=0; i<n*n; i++) 
     {
-        arr[i/n][i%n] = atoi(argv[i+5]); 
-
-        printf("%d ", arr[i/n][i%n]);
+        arr[i/n][i%n] = atoi(argv[i+5]);
     }
-    putchar('\n');
+
+    printf("---INPUT---\n");
+    printf(" n : %d \n a : %d \n b : %d \n p : %d\n", n, a, b, p); 
+    printf("Matrix : \n");
+    for(int i=0; i<n; i++) 
+    {
+        for(int j=0; j<n; j++)
+            printf("%d ",arr[i][j]);
+        putchar('\n');
+    }
+    
 
     //forking n processes
     int controller_pid = getpid(); 
