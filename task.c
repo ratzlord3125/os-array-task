@@ -23,7 +23,7 @@ int processRow(int* arr, int n) {
     for(int i=0; i<n; i++) printf("%d ", arr[i]); putchar('\n'); 
     pthread_t tid; 
     pthread_attr_t attr; 
-    pthread_t workers[n]; 
+    pthread_t workers[10]; 
     for(int i=0; i<n; i++) 
     {
         // printf("Creating thread (ptid :: %ld)\n", tid);
@@ -53,7 +53,7 @@ int main(int argc, char**argv)
     int b = atoi(argv[3]);
     int p = atoi(argv[4]); 
 
-    int arr[n][n]; // to store the input in matrix 
+    int arr[10][10]; // to store the input in matrix 
     for(int i=0; i<n*n; i++) 
     {
         arr[i/n][i%n] = atoi(argv[i+5]);
@@ -69,17 +69,20 @@ int main(int argc, char**argv)
         putchar('\n');
     }
     
+    signal(SIGCHLD, sigchld); 
 
     //forking n processes
-    int controller_pid = getpid(); 
-    int pi[n*2]; 
-    signal(SIGCHLD, sigchld);
-    printf("Forking %d processes for the parent process (pid :: %d)\n", n, controller_pid); 
+    int control_pid = getpid(); 
+    int pi[20]; 
+    
+    printf("Forking %d processes for the parent process pid = %d\n", n, control_pid); 
     for(int i=0; i<n; i++) 
     {
         int pid = getpid(); 
         pipe(pi+i*2);
-        if(pid == controller_pid) 
+        printf("Pipe between parent pid = %d and child pid = %d created \n", getppid(), getpid()); 
+
+        if(pid == control_pid) 
         {
             int child_pid = fork(); 
             if(child_pid)  //you are in parent
