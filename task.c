@@ -99,4 +99,4 @@ int main(int argc, char**argv)
     return 0;
 }
 
-// gcc task.c -pthread -o task && ./task 10 99 5 17 28 67 65 22 19 11 77 89 78 45 40 20 10 90 76
+// gcc task.c -pthread -o task && ./task 4 10 99 5 17 28 67 65 22 19 11 77 89 78 45 40 20 10 90 76
