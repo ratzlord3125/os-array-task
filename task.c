@@ -7,7 +7,7 @@
 #include <stdlib.h> 
 #include <pthread.h>
 #include <signal.h>
-#include <./CSF372.h>>
+#include "./CSF372.h"
 
 int processReturn = 0;
 int rowSum = 0;
@@ -55,12 +55,11 @@ int main(int argc, char**argv)
 
     int arr[n][n]; // to store the input in matrix 
 
-    printf("---INPUT---");
+    printf("---INPUT---\n");
     printf("n : %d \n a : %d \n b : %d \n p : %d\n", n, a, b, p); 
     printf("Matrix : \n");
     for(int i=0; i<n*n; i++) 
     {
-        if((i)%n == 0) putchar('\n');
         arr[i/n][i%n] = atoi(argv[i+5]); 
 
         printf("%d ", arr[i/n][i%n]);
