@@ -7,16 +7,78 @@
 #include <stdlib.h> 
 #include <pthread.h>
 #include <signal.h>
+#include <math.h>
 #include "./CSF372.h"
 
 int processReturn = 0;
-int rowSum = 0;
+int rowthapx = 0;
+int colwpapx = 0;
+int p = 0;
+
+int isprime(int a)
+{
+    int prime = 1;
+    if(a == 1)
+        return 0;
+    if(a == 2)
+        return 1;
+    for(int i = 2; i <= a/2; i++)
+    {
+        if(a%i == 0)
+        {
+            prime = 0;
+            break;
+        }
+    }
+    return prime;
+    
+}
+
+
 
 void* averageCalc(void* val) {
     int x = *((int*)val);
     printf("Processing element :: %d\n", x); 
-    rowSum += x; 
+
     if(x < 0) exit(1); 
+
+    int p1 = p, y = x-1, th = 0, c = 0;
+    if(isprime(x))
+    {
+        //printf("%d", x);
+        th += x;
+        c++;
+    }
+    while(y > 0 && p1 > 0)
+    {
+        if(isprime(y))
+        {
+            //printf("%d ", y);
+            th += y;
+            p1--;
+            c++;
+        }
+        y--;
+    }
+    y = x+1;
+    p1 = p;
+    putchar('\n');
+    while(p1 > 0)
+    {
+        if(isprime(y))
+        {
+            //printf("%d ", y);
+            th += y;
+            p1--;
+            c++;
+        }
+        y++;
+    }
+    
+    putchar('\n');
+    printf("thapx = %d\n", th/c);
+    rowthapx+=(th/c);
+
     pthread_exit(0); 
 }
 int processRow(int* arr, int n) {
@@ -30,10 +92,11 @@ int processRow(int* arr, int n) {
         pthread_create(&tid, NULL, averageCalc, &arr[i]); 
         workers[i] = tid; 
     }
+    
     for(int i=0; i<n; i++) {
         pthread_join(workers[i], NULL); 
     }
-    return rowSum; 
+    return rowthapx/n; 
 }
 
 void sigchld() {
@@ -51,7 +114,8 @@ int main(int argc, char**argv)
     int n = atoi(argv[1]);
     int a = atoi(argv[2]);
     int b = atoi(argv[3]);
-    int p = atoi(argv[4]); 
+    int pp = atoi(argv[4]); 
+    p = pp; // setting global value of p
 
     int arr[10][10]; // to store the input in matrix 
     for(int i=0; i<n*n; i++) 
@@ -92,6 +156,7 @@ int main(int argc, char**argv)
                 wait(&processReturn);
                 read(*(pi+i*2), &x, sizeof(int)); 
                 printf("Read value %d from parent \n", x);
+                colwpapx+=x;
             } 
             else  //you are in child
             {
@@ -102,8 +167,13 @@ int main(int argc, char**argv)
                 exit(0); 
             }
         }
+
     }
+    int fapx = colwpapx/n;
+    printf("fapx = %d\n",fapx);
     return 0;
 }
+
+// gcc task.c -pthread -o task && ./task 4 10 99 5 17 28 67 65 22 19 11 77 89 78 45 40 20 10 90 76
 
 // gcc task.c -pthread -o task && ./task 4 10 99 5 17 28 67 65 22 19 11 77 89 78 45 40 20 10 90 76
