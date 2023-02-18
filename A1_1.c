@@ -1,4 +1,15 @@
+// CSF32 ASSIGNMENT 1
 // GROUP 1
+// Aditya Seth
+// Aditya Kumar
+// Ayush Mishra
+// Anmol Goyal
+// Aniketh Purackattu Sabu
+// Puneet Agarwal
+// Kaushik Chetluri
+
+// input format:
+// gcc A1_1.c -pthread -o A1_1 && ./A1_1 4 10 99 5 17 28 67 65 22 19 11 77 89 78 45 40 20 10 90 76
 
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -180,7 +191,7 @@ int main(int argc, char**argv)
 
         if(pid == control_pid) 
         {
-            int child_pid = fork(); 
+            pid_t child_pid = fork(); 
             int x; // for storing read and write value of pipes
 
             if(child_pid > 0)  // parent process
@@ -214,4 +225,3 @@ int main(int argc, char**argv)
     return 0;
 }
 
-// gcc task.c -pthread -o task && ./task 4 10 99 5 17 28 67 65 22 19 11 77 89 78 45 40 20 10 90 76
