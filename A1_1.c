@@ -187,14 +187,15 @@ int main(int argc, char**argv)
  
     for(i=0;i<n;i++) 
     {
-        pipe(pi+i*2);
-        PRINT_INFO("Pipe between parent pid = %d and child pid = %d created", getppid(), getpid());
+        pipe(pi+i*2); //pipe initialized
  
         pid_t child_pid = fork(); 
  
         if(child_pid == 0)  // child process
         {
-           printf("Processing row no. %d : ", i); 
+            PRINT_INFO("Pipe between parent pid = %d and child pid = %d created", getppid(), getpid());
+
+            printf("Processing row no. %d : ", i); 
             x = processRow(arr[i], n); 
             write(*(pi+i*2+1), &x, sizeof(int)); 
             printf("Writing wpapx %d into pipe\n", x);
