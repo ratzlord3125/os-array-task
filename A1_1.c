@@ -65,7 +65,7 @@ void* thapxCalc(void* val)
     int x = *((int*)val);
     printf("Processing element : %d\n", x); 
  
-    // lower half of primes
+    // lower half of the primes
     int p1 = p, y = x-1, th = 0, c = 0;
     while(y > 0 && p1 > 0)
     {
@@ -87,7 +87,7 @@ void* thapxCalc(void* val)
         c++;
     }
  
-    // upper half of primes
+    // upper half of the primes
     y = x+1;
     p1 = p;
     while(p1 > 0)
