@@ -189,12 +189,13 @@ int main(int argc, char**argv)
     for(i=0;i<n;i++) 
     {
         pipe(pi+i*2); //pipe initialized
+        PRINT_INFO("Pipe between parent and %dth child created", i);
  
         pid_t child_pid = fork(); 
  
         if(child_pid == 0)  // child process
         {
-            PRINT_INFO("Pipe between parent pid = %d and child pid = %d created", getppid(), getpid());
+            PRINT_INFO("Forked child pid = %d for parent pid = %d", getpid(), getppid());PRINT_INFO("Forked child pid = %d for parent pid = %d", getpid(), getppid());
 
             printf("Processing row no. %d : ", i); 
             x = processRow(arr[i], n); 
@@ -206,8 +207,6 @@ int main(int argc, char**argv)
     }
     for(i=0;i<n;i++) // parent process for n children
     {
-        PRINT_INFO("Forked child pid = %d for parent pid = %d", getpid(), getppid());
- 
         wait(&processReturn);
         read(*(pi+i*2), &x, sizeof(int)); 
         printf("Reading wpapx %d from parent \n", x);
