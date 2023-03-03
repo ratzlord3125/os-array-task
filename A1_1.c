@@ -126,7 +126,6 @@ int processRow(int* arr, int n)
     putchar('\n'); 
  
     pthread_t tid; 
-    pthread_attr_t attr; 
     pthread_t workers[10]; 
     for(i=0; i<n; i++) 
     {
