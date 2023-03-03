@@ -65,9 +65,6 @@ void* thapxCalc(void* val)
     int x = *((int*)val);
     printf("Processing element : %d\n", x); 
  
-    if(x < 0 || x < a || x > b) // checking range of the element
-        exit(EXIT_FAILURE); 
- 
     // lower half of primes
     int p1 = p, y = x-1, th = 0, c = 0;
     while(y > 0 && p1 > 0)
@@ -120,7 +117,12 @@ int processRow(int* arr, int n)
     int i;
     // printing the row to be processed
     for(i=0; i<n; i++) 
+    {
         printf("%d ", arr[i]); 
+
+        if(arr[i] < 0 || arr[i] < a || arr[i] > b) // checking range of the element
+            exit(EXIT_FAILURE); 
+    }
     putchar('\n'); 
  
     pthread_t tid; 
