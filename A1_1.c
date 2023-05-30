@@ -195,7 +195,7 @@ int main(int argc, char**argv)
  
         if(child_pid == 0)  // child process
         {
-            PRINT_INFO("Forked child pid = %d for parent pid = %d", getpid(), getppid());PRINT_INFO("Forked child pid = %d for parent pid = %d", getpid(), getppid());
+            PRINT_INFO("Forked child pid = %d for parent pid = %d", getpid(), getppid());
 
             printf("Processing row no. %d : ", i); 
             x = processRow(arr[i], n); 
